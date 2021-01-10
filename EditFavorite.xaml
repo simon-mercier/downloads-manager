@@ -1,0 +1,93 @@
+﻿<Window x:Class="DownloadsManager.EditFavorite"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:diag="clr-namespace:System.Diagnostics;assembly=WindowsBase"
+        xmlns:w="clr-namespace:DownloadsManager"
+        mc:Ignorable="d"
+        WindowStyle="None"
+        WindowStartupLocation="CenterScreen"
+        FontFamily="Fonts/#Roboto-Black"
+        FontSize="18"
+        AllowsTransparency="True"
+        Background="Transparent"
+        Height="145" Width="500">
+
+    <Window.CommandBindings>
+        <CommandBinding Command="w:Command.MovePath"    Executed="EditTheFavorite" />
+        <CommandBinding Command="w:Command.Cancel"      Executed="CancelExecution" />
+    </Window.CommandBindings>
+    
+    <Window.Resources>
+        <Style TargetType="{x:Type Button}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border CornerRadius="5" BorderThickness="1" Padding="2">
+                            <ContentPresenter />
+                            <Border.Style>
+                                <Style>
+                                    <Setter Property="Border.Background" Value="#ebebeb"/>
+                                    <Style.Triggers>
+                                        <Trigger Property="Border.IsMouseOver" Value="True">
+                                            <Setter Property="Border.Background" Value="#cfcfcf" />
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Border.Style>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+
+        </Style>
+    </Window.Resources>
+
+
+    <Grid>
+        <Border CornerRadius="10" BorderThickness="10" MouseDown="Border_MouseDown">
+            <Border.BorderBrush>
+                <SolidColorBrush Color="#FFFFFF" />
+            </Border.BorderBrush>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="2*"/>
+                </Grid.ColumnDefinitions>
+
+                <Rectangle Grid.ColumnSpan="2" Grid.RowSpan="4" Fill="White" />
+
+                <Grid Grid.Row="0" Grid.Column="0">
+                    <Label Content="Edit Favorite" Grid.Column="0" HorizontalAlignment="Left" FontWeight="Black" />
+                </Grid>
+                <Grid Grid.Row="1" Grid.Column="0">
+                    <Label Content="Name" Grid.Column="0" HorizontalAlignment="Left" FontWeight="Black" FontSize="14"/>
+                </Grid>
+                <Grid Grid.Row="1" Grid.Column="1">
+                    <Label Content="Path" Grid.Column="1" HorizontalAlignment="Left" FontWeight="Black" FontSize="14"/>
+                </Grid>
+                <Grid Grid.Row="2" Grid.Column="0">
+                    <TextBox x:Name="NameInput" TextChanged="NameInput_TextChanged"></TextBox>
+                </Grid>
+                <Grid Grid.Row="2" Grid.Column="1">
+                    <Button x:Name="SelectPath" Click="SelectPath_Click"/>
+                </Grid>
+                <Grid Grid.Row="3" Grid.ColumnSpan="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="79*"/>
+                        <ColumnDefinition Width="81*"/>
+                    </Grid.ColumnDefinitions>
+                    <Button x:Name="BtnFavoriteCancel" Grid.Column="0" Content="Cancel"  HorizontalAlignment="Left" VerticalAlignment="Bottom" Click="CancelExecution"/>
+                    <Button x:Name="BtnFavoriteAdd" Grid.Column="1" Content="OK" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="EditTheFavorite" Margin="144,0,0,0"/>
+                </Grid>
+            </Grid>
+        </Border>
+    </Grid>
+</Window>
