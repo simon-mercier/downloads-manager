@@ -1,7 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Threading;
+using System.Windows;
 
 namespace DownloadsManager
 {
@@ -40,10 +43,18 @@ namespace DownloadsManager
             if (!Directory.Exists(SelectedDirectory.FullPath))
                 Directory.CreateDirectory(SelectedDirectory.FullPath);
 
-            var destFile = System.IO.Path.Combine(SelectedDirectory.FullPath, NewestDownload.PathName);
+            var destPath = System.IO.Path.Combine(SelectedDirectory.FullPath, NewestDownload.PathName);
 
-            File.Move(NewestDownload.FullPath, destFile, true);
-
+            File.Move(NewestDownload.FullPath, destPath, true);
+            try
+            {
+                new Process { StartInfo = new ProcessStartInfo(destPath) { UseShellExecute = true } }.Start();
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Unable to open the download.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            
             NewestDownload = null;
         }
 
