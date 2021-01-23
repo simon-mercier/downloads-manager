@@ -233,7 +233,7 @@
                                                     <Setter Property="Visibility" Value="Collapsed" ></Setter>
                                                 </Style>
                                             </GridView.ColumnHeaderContainerStyle>
-                                            <GridViewColumn x:Name="ListViewCol" Width="auto" DisplayMemberBinding="{Binding PathName}"/>
+                                            <GridViewColumn x:Name="ListViewCol" Width="440" DisplayMemberBinding="{Binding PathName}"/>
                                         </GridView>
                                     </ListView.View>
                                     <ListView.ContextMenu>

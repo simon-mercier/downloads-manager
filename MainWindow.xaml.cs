@@ -8,6 +8,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Linq;
 using System.IO;
+using System.ComponentModel;
+using System.Diagnostics;
 
 namespace DownloadsManager
 {
@@ -55,6 +57,7 @@ namespace DownloadsManager
 		{
 			this.Dispatcher.Invoke(() =>
 			{
+				this.Topmost = true;
 				Keyboard.Focus(this);
 				this.Show();
 				this.IsEnabled = true;
@@ -133,7 +136,6 @@ namespace DownloadsManager
 
 		private void OnDoubleClickFavorite(object sender, MouseButtonEventArgs e)
 		{
-
 			MovePath(sender, new RoutedEventArgs());
 		}
 
@@ -150,8 +152,14 @@ namespace DownloadsManager
 
 		private void CancelExecution(object sender, RoutedEventArgs e)
 		{
-			this.Hide();
+			CloseWindow();
+		}
+
+		private void CloseWindow()
+		{
 			router.NewestDownload = null;
+			this.Hide();
+			IsEnabled = false;
 		}
 
 		private void MovePath(object sender, RoutedEventArgs e)
@@ -171,8 +179,9 @@ namespace DownloadsManager
 			}
 
 			router.RouteToSelectedDirectory();
-			this.IsEnabled = false;
-			this.Hide();
+
+			CloseWindow();
+
 		}
 
 		private void OtherPath(object sender, RoutedEventArgs e)
@@ -222,6 +231,11 @@ namespace DownloadsManager
 		private void Border_MouseDown(object sender, MouseButtonEventArgs e)
 		{
 			this.DragMove();
+		}
+		protected override void OnClosing(CancelEventArgs e)
+		{
+			e.Cancel = true;
+			CloseWindow();
 		}
 	}
 }
